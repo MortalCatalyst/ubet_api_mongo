@@ -1,7 +1,8 @@
 import time
 from datetime import timedelta, date
-
 import requests
+import pymongo
+from pymongo import MongoClient
 
 
 def dateRange(start_date, end_date):
