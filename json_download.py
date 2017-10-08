@@ -30,14 +30,16 @@ for dates in fullUrl:
     time.sleep(0.3)
     r = requests.get(dates)
     data = r.json()
-
     if data["RaceDay"] is not None:
-        client = MongoClient('localhost', 27017)
-        db = client.ubet_api
-        COLLECTION = db.ubet_api
-
-        RESULT = db.result
-        RESULT_ID = RESULT.insert_one(data).inserted_id
+        print(data["RaceDay"]["Meetings"][0]["VenueName"] + "_" + data["RaceDay"]["MeetingDate"])
+        
+    # if data["RaceDay"] is not None:
+    #     client = MongoClient('localhost', 27017)
+    #     db = client.ubet_api
+    #     COLLECTION = db.ubet_api
+    #
+    #     RESULT = db.result
+    #     RESULT_ID = RESULT.insert_one(data).inserted_id
 
         # if data["RaceDay"] is None:
         #     print("Nothing here")
@@ -49,8 +51,8 @@ for dates in fullUrl:
 # data = r.json()
 # print(data)
 
-print(db.collection_names(include_system_collections=False))
-CURSOR = db.result.find({})
+# print(db.collection_names(include_system_collections=False))
+# CURSOR = db.result.find({})
 
-for item in CURSOR:
-    print(item)
+# for item in CURSOR:
+#     print(item)
