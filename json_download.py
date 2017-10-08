@@ -11,8 +11,8 @@ def dateRange(start_date, end_date):
 
 
 meetingCodes = ['SR', 'MR', 'BR', 'AR', 'PR']
-start_date = date(2017, 1, 1)
-end_date = date(2017, 9, 16)
+start_date = date(2017, 9, 6)
+end_date = date(2017, 10, 1)
 
 
 def dateURL(start, end):
@@ -30,12 +30,27 @@ for dates in fullUrl:
     time.sleep(0.3)
     r = requests.get(dates)
     data = r.json()
-    if data["RaceDay"] is None:
-        print("Nothing here")
-    else:
-        print(data["RaceDay"])
+
+    if data["RaceDay"] is not None:
+        client = MongoClient('localhost', 27017)
+        db = client.ubet_api
+        COLLECTION = db.ubet_api
+
+        RESULT = db.result
+        RESULT_ID = RESULT.insert_one(data).inserted_id
+
+        # if data["RaceDay"] is None:
+        #     print("Nothing here")
+        # else:
+        #     print(data["RaceDay"])
         # if data["RaceDay"]["Success"] == 'False':
         #     print('Nothing here')
 # pp = pprint.PrettyPrinter(indent=2)
 # data = r.json()
 # print(data)
+
+print(db.collection_names(include_system_collections=False))
+CURSOR = db.result.find({})
+
+for item in CURSOR:
+    print(item)
