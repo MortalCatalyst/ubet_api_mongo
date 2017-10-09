@@ -1,6 +1,7 @@
 import time
 from datetime import timedelta, date
 import requests
+import pathlib
 import pymongo
 from pymongo import MongoClient
 
@@ -23,6 +24,9 @@ def dateURL(start, end):
                                                                                                  sd.strftime("%d"), mc)
 
 
+result_path = pathlib.Path(r'C:\Users\Sayth\Projects\results')
+pre_path = pathlib.Path(r'C:\Users\Sayth\Projects\pre')
+
 fullUrl = dateURL(start_date, end_date)
 
 for dates in fullUrl:
@@ -31,8 +35,8 @@ for dates in fullUrl:
     r = requests.get(dates)
     data = r.json()
     if data["RaceDay"] is not None:
-        print(data["RaceDay"]["Meetings"][0]["VenueName"] + "_" + data["RaceDay"]["MeetingDate"])
-        
+        file_name = data["RaceDay"]["Meetings"][0]["VenueName"] + "_" + data["RaceDay"]["MeetingDate"]
+
     # if data["RaceDay"] is not None:
     #     client = MongoClient('localhost', 27017)
     #     db = client.ubet_api
