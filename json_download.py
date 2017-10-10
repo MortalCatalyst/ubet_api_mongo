@@ -24,7 +24,7 @@ def dateURL(start, end):
                                                                                                  sd.strftime("%d"), mc)
 
 
-result_path = pathlib.Path(r'C:\Users\Sayth\Projects\results')
+
 pre_path = pathlib.Path(r'C:\Users\Sayth\Projects\pre')
 
 fullUrl = dateURL(start_date, end_date)
@@ -35,11 +35,14 @@ for dates in fullUrl:
     r = requests.get(dates)
     data = r.json()
     if data["RaceDay"] is not None:
-        file_name = data["RaceDay"]["Meetings"][0]["VenueName"] + "_" + data["RaceDay"]["MeetingDate"]
-
+        file_name = data["RaceDay"]["Meetings"][0]["VenueName"] + data["RaceDay"]["MeetingDate"] + '.json'
+        result_path = pathlib.PurePosixPath(r'C:\Users\Sayth\Projects\results', file_name)
+        with open(result_path, 'a') as f:
+            f.write(data)
+            # print(data["RaceDay"]["Meetings"][0]["Races"][0]["Status"])
     # if data["RaceDay"] is not None:
     #     client = MongoClient('localhost', 27017)
-    #     db = client.ubet_api
+    #     db = client.ubet_ap
     #     COLLECTION = db.ubet_api
     #
     #     RESULT = db.result
