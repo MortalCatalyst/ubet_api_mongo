@@ -3,8 +3,7 @@ from datetime import timedelta, date
 import requests
 import pathlib
 import json
-import pymongo
-from pymongo import MongoClient
+
 
 
 def dateRange(start_date, end_date):
@@ -13,8 +12,8 @@ def dateRange(start_date, end_date):
 
 
 meetingCodes = ['SR', 'MR', 'BR', 'PR']
-start_date = date(2017, 9, 6)
-end_date = date(2017, 10, 1)
+start_date = date(2017, 1, 1)
+end_date = date(2017, 10, 12)
 
 
 def dateURL(start, end):
@@ -38,10 +37,20 @@ for dates in fullUrl:
     if data["RaceDay"] is not None:
         a = data["RaceDay"]["MeetingDate"]
         b = a[:10]
+        status = data["RaceDay"]["Meetings"][0]["Races"][0]["Status"]
         file_name = data["RaceDay"]["Meetings"][0]["VenueName"] + '_' + b + '.json'
         result_path = pathlib.PurePath(r'C:\Users\Sayth\Projects\results', file_name)
-        with open(result_path, 'w') as f:
-            json.dump(data, f)
+        pre_race_path = pathlib.PurePath(r'C:\Users\Sayth\Projects\pre', file_name)
+        print(data["RaceDay"]["Meetings"][0]["Races"][0]["Status"])
+        if status == "PAYING":
+            with open(result_path, 'w') as f:
+                json.dump(data, f)
+        else:
+            with open(pre_race_path, 'w') as f:
+                json.dump(data, f)
+
+
+
             # print(data["RaceDay"]["Meetings"][0]["Races"][0]["Status"])
     # if data["RaceDay"] is not None:
     #     client = MongoClient('localhost', 27017)
