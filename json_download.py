@@ -2,6 +2,7 @@ import time
 from datetime import timedelta, date
 import requests
 import pathlib
+import json
 import pymongo
 from pymongo import MongoClient
 
@@ -11,7 +12,7 @@ def dateRange(start_date, end_date):
         yield start_date + timedelta(n)
 
 
-meetingCodes = ['SR', 'MR', 'BR', 'AR', 'PR']
+meetingCodes = ['SR', 'MR', 'BR', 'PR']
 start_date = date(2017, 9, 6)
 end_date = date(2017, 10, 1)
 
@@ -35,10 +36,12 @@ for dates in fullUrl:
     r = requests.get(dates)
     data = r.json()
     if data["RaceDay"] is not None:
-        file_name = data["RaceDay"]["Meetings"][0]["VenueName"] + data["RaceDay"]["MeetingDate"] + '.json'
-        result_path = pathlib.PurePosixPath(r'C:\Users\Sayth\Projects\results', file_name)
-        with open(result_path, 'a') as f:
-            f.write(data)
+        a = data["RaceDay"]["MeetingDate"]
+        b = a[:10]
+        file_name = data["RaceDay"]["Meetings"][0]["VenueName"] + '_' + b + '.json'
+        result_path = pathlib.PurePath(r'C:\Users\Sayth\Projects\results', file_name)
+        with open(result_path, 'w') as f:
+            json.dump(data, f)
             # print(data["RaceDay"]["Meetings"][0]["Races"][0]["Status"])
     # if data["RaceDay"] is not None:
     #     client = MongoClient('localhost', 27017)
