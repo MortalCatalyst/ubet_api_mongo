@@ -4,7 +4,7 @@ import requests
 import pathlib
 import json
 
-
+# TODO: Make file downloader into a function and then convert file to module.
 
 def dateRange(start_date, end_date):
     for n in range(int((end_date - start_date).days)):
