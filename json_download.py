@@ -5,21 +5,25 @@ import pathlib
 import json
 
 # TODO: Make file downloader into a function and then convert file to module.
+# TODO: Detect which OS it is on
+# TODO: Download file based on appropriate OS call
+# TODO: function for API's let user select which API to use then call that method (CLASS would be better)
 
 def dateRange(start_date, end_date):
     for n in range(int((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
 
-meetingCodes = ['SR', 'MR', 'BR', 'PR']
-start_date = date(2017, 1, 1)
-end_date = date(2017, 10, 12)
+meetingCodes = ['NR', 'VR', 'QR', 'BR', 'SR', 'MR', 'VR', 'AR', 'PR', 'TR', 'ZS', 'CR', 'OS']
+start_date = date(2016, 2, 1)
+end_date = date(2018, 1, 15)
+
 
 
 def dateURL(start, end):
     for sd in dateRange(start, end):
         for mc in meetingCodes:
-            yield "https://api.tatts.com/sales/vmax/web/data/racing/{0}/{1}/{2}/{3}/full".format(sd.strftime("%Y"),
+            yield "https://api.tatts.com/sales/vmax/web/data/racing/{0}/{1}/{2}/{3}/multi/full".format(sd.strftime("%Y"),
                                                                                                  sd.strftime("%m"),
                                                                                                  sd.strftime("%d"), mc)
 
@@ -39,8 +43,8 @@ for dates in fullUrl:
         b = a[:10]
         status = data["RaceDay"]["Meetings"][0]["Races"][0]["Status"]
         file_name = data["RaceDay"]["Meetings"][0]["VenueName"] + '_' + b + '.json'
-        result_path = pathlib.PurePath(r'C:\Users\Sayth\Projects\results', file_name)
-        pre_race_path = pathlib.PurePath(r'C:\Users\Sayth\Projects\pre', file_name)
+        result_path = pathlib.PurePath(r'C:\Users\Sayth\OneDrive\Projects\Folder\Results', file_name)
+        pre_race_path = pathlib.PurePath(r'C:\Users\Sayth\OneDrive\Projects\pre', file_name)
         print(data["RaceDay"]["Meetings"][0]["Races"][0]["Status"])
         if status == "PAYING":
             with open(result_path, 'w') as f:
