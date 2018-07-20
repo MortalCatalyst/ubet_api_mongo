@@ -4,6 +4,7 @@ import requests
 import pathlib
 import json
 
+
 # TODO: Make file downloader into a function and then convert file to module.
 # TODO: Detect which OS it is on
 # TODO: Download file based on appropriate OS call
@@ -19,14 +20,11 @@ start_date = date(2018, 3, 20)
 end_date = date(2018, 7, 22)
 
 
-
 def dateURL(start, end):
     for sd in dateRange(start, end):
         for mc in meetingCodes:
-            yield "https://api.tatts.com/sales/vmax/web/data/racing/{0}/{1}/{2}/{3}/multi/full".format(sd.strftime("%Y"),
-                                                                                                 sd.strftime("%m"),
-                                                                                                 sd.strftime("%d"), mc)
-
+            yield "https://api.tatts.com/sales/vmax/web/data/racing/{0}/{1}/{2}/{3}/multi/full".format(
+                sd.strftime("%Y"), sd.strftime("%m"), sd.strftime("%d"), mc)
 
 
 pre_path = pathlib.Path(r'C:\Users\Sayth\Projects\pre')
@@ -52,4 +50,3 @@ for dates in fullUrl:
         else:
             with open(pre_race_path, 'w') as f:
                 json.dump(data, f)
-
