@@ -30,8 +30,7 @@ races = ENTRY_POINT['Races'][0]
 # # for k, v in races.items():  #     print(k['RacingFormGuide'])  # RFG = races['RacingFormGuide'].keys()  # EVENT = races['RacingFormGuide']['Event'].keys()
 #
 # # print(list(RFG))  # print(list(EVENT))
-#
-#
+
 def walk_json(tree, path=[]):
     try:
         for root in tree.keys():
