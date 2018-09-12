@@ -16,8 +16,8 @@ def dateRange(start_date, end_date):
 
 
 meetingCodes = ['NR', 'VR', 'QR', 'BR', 'SR', 'MR', 'VR', 'AR', 'PR', 'TR', 'ZS', 'CR', 'OS']
-start_date = date(2018, 3, 20)
-end_date = date(2018, 7, 22)
+start_date = date(2018, 9, 2)
+end_date = date(2018, 9, 9)
 
 
 def dateURL(start, end):
