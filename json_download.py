@@ -41,8 +41,13 @@ for dates in fullUrl:
         b = a[:10]
         status = data["RaceDay"]["Meetings"][0]["Races"][0]["Status"]
         file_name = data["RaceDay"]["Meetings"][0]["VenueName"] + '_' + b + '.json'
+
         result_path = pathlib.PurePath(r'C:\Users\Sayth\OneDrive\Projects\Folder\Results', file_name)
         pre_race_path = pathlib.PurePath(r'C:\Users\Sayth\OneDrive\Projects\pre', file_name)
+
+#         result_path = pathlib.PurePath(r'/home/sayth/Projects/results', file_name)
+#         pre_race_path = pathlib.PurePath(r'C:\Users\Sayth\Projects\pre', file_name)
+
         print(data["RaceDay"]["Meetings"][0]["Races"][0]["Status"])
         if status == "PAYING":
             with open(result_path, 'w') as f:
